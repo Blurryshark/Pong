@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 public class ScoreDetector : MonoBehaviour
 {
     public GameObject ballPrefab;
+    public GameObject powerPrefab;
     public Transform ballSpawnTransform;
     public float startingForceMultiply = 3;
     public int leftPlayerScore = 0;
@@ -38,6 +39,11 @@ public class ScoreDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Color randColor = new Color(Random.value, Random.value, Random.value);
+        leftTextScore.color = randColor;
+        rightTextScore.color = randColor;
+        AudioSource src = GetComponent<AudioSource>();
+        src.Play();
         Debug.Log("Score!");
         other.gameObject.SetActive(false);
         if (this.gameObject.name == "LeftScoreZone")
@@ -124,12 +130,17 @@ public class ScoreDetector : MonoBehaviour
     private Object spawnBall()
     {
         float randomPos = Random.Range(0, 15);
+        float randomPos1 = Random.Range(0, 15);
         Vector3 position = new Vector3(ballSpawnTransform.position.x - randomPos, ballSpawnTransform.position.y, ballSpawnTransform.position.z);
+        Vector3 position1 = new Vector3(ballSpawnTransform.position.x - randomPos1, ballSpawnTransform.position.y, ballSpawnTransform.position.z);
+
         Object newBall = Instantiate(ballPrefab, position, Quaternion.identity);
+        Object newPower = Instantiate(powerPrefab, position1, Quaternion.identity);
         return newBall;
     }
     private bool SetLeftPlayerScore()
     {
+        
         leftPlayerScore++;
         leftTextScore.text = leftPlayerScore.ToString();
         if (leftPlayerScore == winScore)
@@ -144,6 +155,7 @@ public class ScoreDetector : MonoBehaviour
 
     private bool SetRightPlayerScore()
     {
+        
         rightPlayerScore++;
         rightTextScore.text = rightPlayerScore.ToString();
         if (rightPlayerScore == winScore)

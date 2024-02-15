@@ -1,22 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
+using Random = UnityEngine.Random;
 
 public class paddleScript : MonoBehaviour
 {
     public float unitsPerSecond = 3f;
     public float originalSize = 8f;
+    public GameObject camera;
+    private Transform camTransform;
+    public float frequency = 25;
     
     public Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
          rb = GetComponent<Rigidbody>();
+         camTransform = camera.GetComponent<Transform>();
     }
 
-    
+    private void OnCollisionEnter(Collision other)
+    {
+        
+        // if (other.gameObject.name == "Cube(Clone)")
+        // {
+        //     
+        //     camShake();
+        //     Debug.Log("impacted " + other.gameObject.name);
+        //     AudioSource src = GetComponent<AudioSource>();
+        //     src.Play();
+        // }
+        
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

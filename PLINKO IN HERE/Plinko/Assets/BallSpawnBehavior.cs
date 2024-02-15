@@ -16,7 +16,7 @@ public class BallSpawnBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             int rand = Random.Range(0, 15);
             Vector3 spawnPosition = new Vector3(spawnLocation.position.x, spawnLocation.position.y, spawnLocation.position.z + rand);

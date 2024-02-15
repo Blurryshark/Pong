@@ -10,11 +10,14 @@ public class ballDaemon : MonoBehaviour
     public Transform t;
     public Vector3 currVelocity;
     public float bounceSpeedVariable = 3f;
+    public AudioSource src;
+    
 
     public float startingForceMultiply = 3;
     // Start is called before the first frame update
     void Start()
     {
+        src = GetComponent<AudioSource>();
         // // rb = GetComponent <Rigidbody>();
         // // t = GetComponent<Transform>();
         //
@@ -39,6 +42,7 @@ public class ballDaemon : MonoBehaviour
         //float varRotate = paddleScript.paddleRef(other.transform.position, "RightPaddle");
         if (other.gameObject.name == "LeftPaddle" || other.gameObject.name == "RightPaddle")
         {
+            src.pitch = 1;
             float varRotate = (transform.position.x - other.transform.position.x) / 4;
             if (varRotate > 1)
             {
@@ -49,6 +53,9 @@ public class ballDaemon : MonoBehaviour
                 varRotate = varRotate * 1;
             }
 
+            src.pitch += varRotate;
+            
+            src.Play();
             //Debug.Log(varRotate);
             Vector3 newVelocity = new Vector3(0, currVelocity.y, -currVelocity.z) * bounceSpeedVariable;
             //Debug.Log("rotating by " + varRotate * -40 + "!");
